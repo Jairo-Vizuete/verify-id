@@ -1,23 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import axios from "axios";
 
 function App() {
+  const [customerInfo, setCustomerInfo] = useState("");
+
+  const onHandleCustomerInfo = (e) => {
+    setCustomerInfo(e.target.value);
+  };
+
+  const onHandleSubmit = (e) => {
+    e.preventDefault();
+    console.log(customerInfo);
+    getInfoCustomer();
+  };
+
+  const getInfoCustomer = async () => {
+    const headers = {
+      Accept: "*/*",
+      Authorization: "Bearer 96Cfdw22yIEOWdqXuDiV2CtaUnZv7crynzcpgYTg",
+    };
+
+    const response = await axios.get(
+      "https://webservices.ec/api/cedula/" + customerInfo,
+      { headers: headers }
+    );
+    console.log(response);
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <form onSubmit={onHandleSubmit}>
+        <input
+          name="customerId"
+          placeholder="Cédula"
+          onChange={onHandleCustomerInfo}
+        />
+        <button>Enviar</button>
+      </form>
     </div>
   );
 }
