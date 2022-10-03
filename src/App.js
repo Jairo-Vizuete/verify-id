@@ -16,13 +16,17 @@ function App() {
 
   const getInfoCustomer = async () => {
     const headers = {
-      Accept: "*/*",
+      // Accept: "*/*",
+      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Methods": "GET,PUT,POST,DELETE,PATCH,OPTIONS",
       Authorization: "Bearer 96Cfdw22yIEOWdqXuDiV2CtaUnZv7crynzcpgYTg",
     };
 
     const response = await axios.get(
       "https://webservices.ec/api/cedula/" + customerInfo,
-      { headers: headers }
+      {
+        headers: headers,
+      }
     );
     console.log(response);
   };
